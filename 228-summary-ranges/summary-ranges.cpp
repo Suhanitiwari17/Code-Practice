@@ -13,7 +13,7 @@ public:
             int end = nums[i];
 
             if (start == end)
-                res.push_back(to_string(end));
+                res.push_back(to_string(start));
             else
                 res.push_back(to_string(start) + "->" + to_string(end));
 
