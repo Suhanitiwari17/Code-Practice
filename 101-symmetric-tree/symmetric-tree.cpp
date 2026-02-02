@@ -11,15 +11,15 @@
  */
 class Solution {
 public:
-    bool helper(TreeNode* p,TreeNode* q){
-        if(p==NULL||q==NULL){
-            return p==q;
-        }
-        bool leftSame=helper(p->left,q->right);
-        bool rightSame=helper(p->right,q->left);
-        return (rightSame && leftSame && p->val==q->val);
+    bool helper(TreeNode* p , TreeNode* q){
+        if(p==NULL || q==NULL) return p==q;
+       
+        bool leftSame= helper(p->left,q->right);
+        bool rightSame= helper(p->right , q->left);
+
+        return(leftSame && rightSame && p->val==q->val);
     }
     bool isSymmetric(TreeNode* root) {
-        return helper(root->left,root->right);
+       return helper(root->left,root->right);
     }
 };
