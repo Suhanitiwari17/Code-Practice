@@ -18,9 +18,9 @@ public:
 
         for(int c = 1; c < cols; c++){
             pq.push({heightMap[0][c], 0, c});
-            pq.push({heightMap[rows - 1][c], rows - 1, c});
+            pq.push({heightMap[rows - 1][c], rows-1, c});
             seen[0][c] = 1;
-            seen[rows - 1][c] = 1;
+            seen[rows-1][c] = 1;
         }
 
         int total = 0;
