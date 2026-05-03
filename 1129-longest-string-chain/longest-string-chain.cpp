@@ -1,28 +1,52 @@
 class Solution {
 public:
-    int longestStrChain(vector<string>& words) {
-        sort(words.begin(), words.end(), [](string &a, string &b){
-            return a.size() < b.size();
-        });
 
-        unordered_map<string, int> dp;
-        int maxi = 1;
+    static bool comp (string& a,string& b){
+        return a.length() < b.length();
+    };
 
-        for(string word : words){
-            int best = 1;
+    bool isValid(string &s1 , string &s2){
+        if(s1.length() != s2.length()+1) return false;
 
-            for(int i = 0; i < word.size(); i++){
-                string prev = word.substr(0, i) + word.substr(i + 1);
+        int i=0,j=0;
 
-                if(dp.find(prev) != dp.end()){
-                    best = max(best, dp[prev] + 1);
-                }
+        while(i<s1.length() && j<s2.length()){
+            if(s1[i] == s2[j]){
+                j++;
             }
-
-            dp[word] = best;
-            maxi = max(maxi, best);
+            i++;
         }
 
-        return maxi;
+        return j == s2.length();
+    }
+    
+    int t[1001][1001];
+    int solve(vector<string>& words,int i,int prev){
+       if (i >= words.size()) return 0;
+
+       int take=0;
+
+       if(prev != -1 && t[i][prev] != -1) return t[i][prev];
+       
+       if( prev == -1 || 
+       ( words[i].length() == words[prev].length() + 1 && isValid(words[i], words[prev]) )  ){
+            take = 1 + solve(words , i+1 , i);
+       }
+
+       int skip = solve(words , i+1 , prev);
+
+       if(prev!=-1) t[i][prev] = max(take , skip);
+
+       return max(take , skip);
+    }
+    
+    int longestStrChain(vector<string>& words) {
+        sort(words.begin() , words.end() , comp);
+
+        memset(t,-1,sizeof(t));
+
+        int n = words.size();
+
+        return solve(words , 0 , -1);
     }
 };
