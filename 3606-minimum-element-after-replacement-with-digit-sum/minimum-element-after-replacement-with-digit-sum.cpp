@@ -1,7 +1,8 @@
 class Solution {
 public:
     int minElement(vector<int>& nums) {
-        vector<int> result;
+        int mini = INT_MAX;
+       // vector<int> result;
         for(int i=0 ; i<nums.size() ; i++){
             int sum = 0;
             while(nums[i] > 0){
@@ -9,10 +10,11 @@ public:
                 sum += n;
                 nums[i] = nums[i]/10;
             }
-            result.push_back(sum);
+           // result.push_back(sum);
+            if(sum < mini) mini = sum;
         }
-        sort(result.begin() , result.end());
+        //sort(result.begin() , result.end());
 
-        return result[0];
+        return mini;
     }
 };
