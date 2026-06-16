@@ -7,7 +7,8 @@ public:
 
         for(char ch : s){
           if(ch >= 'a' && ch <= 'z'){
-            ans.push_back(ch);
+            //ans.push_back(ch);
+            ans += ch;
           }
           else if(ch == '#'){
             ans += ans;
